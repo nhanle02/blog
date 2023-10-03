@@ -3,13 +3,13 @@
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-6">
-    <h1 class="m-0">Tạo mới người dùng</h1>
+    <h1 class="m-0">Chỉnh sửa người dùng</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Danh sách</a></li>
-        <li class="breadcrumb-item active">Tạo mới</li>
+        <li class="breadcrumb-item active">Chỉnh sửa</li>
     </ol>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Form tạo mới</h3>
+                <h3 class="card-title">Form chỉnh sữa</h3>
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -34,12 +34,12 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.users.edit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="first_name">Họ</label>
-                        <input type="text" value="{{ old('first_name') }}" name="first_name" class="form-control" id="first_name" placeholder="Nhập họ">
+                        <input type="text" value="{{ old('first_name', $user->first_name) }}" name="first_name" class="form-control" id="first_name" placeholder="Nhập họ">
                         @error('first_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

@@ -32,6 +32,9 @@ Route::group([
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users/store', [UserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('admin.users.delete');
 
     Route::get('/posts', [PostController::class, 'index'])->name('admin.posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('admin.posts.create');
