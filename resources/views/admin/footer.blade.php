@@ -5,3 +5,4 @@
         <b>Version</b> 3.2.0
     </div>
 </footer>
+@include('admin.common.modals.confirm-delete')

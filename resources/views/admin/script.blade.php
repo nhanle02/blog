@@ -27,3 +27,7 @@
 <script src="{{ asset('template/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('template/admin/dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('template/admin/dist/js/common.js') }}"></script>
+
+
+@stack('js')
