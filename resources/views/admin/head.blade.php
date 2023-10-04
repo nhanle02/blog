@@ -23,4 +23,6 @@
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('template/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
+<link rel="stylesheet" href="{{ asset('template/admin/dist/css/style.css') }}">
+
 @stack('css')

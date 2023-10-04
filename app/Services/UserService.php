@@ -14,7 +14,7 @@ class UserService
         $keyword = $params['s'] ?? '';
         $role = $params['role'] ?? '';
 
-        return User::
+        $users = User::
             when(!empty($role), function($queryRole) use($role) { 
                 $queryRole->where('role', $role);
             })->where(function($queryLike) use($keyword) {
@@ -22,6 +22,8 @@ class UserService
                 $queryLike->orWhere('email', 'like', "%$keyword%");
             })
             ->paginate(20);
+        $users->appends(['s' => $keyword, 'role' => $role]);
+        return $users;
     }
 
     public function store($attributes) {
