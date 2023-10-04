@@ -52,6 +52,13 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="display_name">Tên hiển thị</label>
+                        <input type="text" value="{{ old('display_name') }}"  name="display_name" class="form-control" id="display_name" placeholder="Nhập tên hiển thị">
+                        @error('display_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="username">Tên đăng nhập</label>
                         <input type="text" name="username" value="{{ old('username') }}" class="form-control" id="username" placeholder="Nhập tên đăng nhập">
                         @error('username')
@@ -113,7 +120,7 @@
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" value="{{ old('status') }}" name="status" class="custom-control-input" id="status">
+                            <input type="checkbox" name="status" class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                         @error('status')

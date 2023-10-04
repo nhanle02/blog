@@ -1,0 +1,13 @@
+.flex .text-sm {
+    margin-top: 20px;
+}
+
+.flex.items-center {
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.flex .shadow-sm svg.w-5 {
+    display: none;
+}
