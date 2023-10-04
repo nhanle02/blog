@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -23,7 +24,8 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $paramId = $this->route()->parameter('id');
+        $rules = [
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'username' => 'required|min:3|max:100|unique:users,username',
@@ -33,9 +35,24 @@ class UserRequest extends FormRequest
             'gender' => 'nullable|in:1,2,3',
             'avatar' => 'nullable|max:2048',
             'phone' => 'nullable|max:11|min:10',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email:rfc,dns|unique:users,email',
             'password' => 'required|min:8|max:32|confirmed',
         ];
+        if ($paramId) {
+            $rules['password'] = 'nullable|min:8|max:32|confirmed';
+            $rules['username'] = [
+                'required',
+                'min:3',
+                'max:100',
+                Rule::unique('users')->ignore($paramId),
+            ];
+            $rules['email'] = [
+                'required',
+                'email:rfc,dns',
+                Rule::unique('users')->ignore($paramId),
+            ];
+        }
+        return $rules;
     }
 
     public function messages() {

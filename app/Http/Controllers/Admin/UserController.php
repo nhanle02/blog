@@ -14,9 +14,9 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userService->getUsersPaginate();
+        $users = $this->userService->getUsersPaginate($request->all());
         $roles = config('const.users.roles');
         $status = config('const.users.status');
         return view('admin.users.index', [
@@ -39,18 +39,16 @@ class UserController extends Controller
     {
         $user = $this->userService->store($request->all());
         if ($user) {
-            $this->userService->uploadFile($request);
             return redirect()->route('admin.users.index')->with('success', 'Đã tạo thành công một người dùng');
         } 
         return back()->with('error', 'Tạo người dùng thất bại');
     }
 
     public function edit($id) 
-    {
+    {   
         $genders = config('const.users.genders');
         $roles = config('const.users.roles');
         $user = $this->userService->getUser($id);
-        dd($user);
         return view('admin.users.edit', [
             'genders' => $genders,
             'roles' => $roles,
@@ -61,11 +59,12 @@ class UserController extends Controller
     public function delete($id) 
     {
         $this->userService->delete($id);
-        return back()->with('success', 'Delete record successfully!!');
+        return back()->with('success', 'Xoá thành công!!');
     }
 
-    public function update($id) 
+    public function update(UserRequest $request, $id) 
     {
-
+        $this->userService->update($request->all(), $id);
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhật thành công!!!');
     }
 }

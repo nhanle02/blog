@@ -26,12 +26,20 @@
                     <a href="{{ route('admin.users.create') }}" class="btn btn-success btn-sm">Thêm mới</a>
                 </h3>
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <select name="role" class="form-control">
+                                <option value="">Tất cả</option>
+                                @foreach ($roles as $key => $role)
+                                    <option value="{{ $key }}" {{ $key == request('role') ? 'selected' : '' }}>{{ $role }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" value="{{ request()->get('s') }}" name="s" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -66,8 +74,8 @@
                             </td>
                             <td>{{ date('d/m/y', strtotime($user->created_at)) }}</td>
                             <td>
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                                <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger btn-sm">Xoá</a>
+                                <a href="{{ route('admin.users.edit', $user->id) }}"  class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                <button data-action="{{ route('admin.users.delete', $user->id) }}"  class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
                             </td>
                         </tr>
                         @endforeach

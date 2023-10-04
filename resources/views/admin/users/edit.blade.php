@@ -34,7 +34,7 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form action="{{ route('admin.users.edit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -46,21 +46,28 @@
                     </div>
                     <div class="form-group">
                         <label for="last_name">Tên</label>
-                        <input type="text" value="{{ old('last_name') }}"  name="last_name" class="form-control" id="last_name" placeholder="Nhập tên">
+                        <input type="text" value="{{ old('last_name', $user->last_name) }}"  name="last_name" class="form-control" id="last_name" placeholder="Nhập tên">
                         @error('last_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="display_name">Tên hiển thị</label>
+                        <input type="text" value="{{ old('display_name', $user->display_name) }}"  name="display_name" class="form-control" id="display_name" placeholder="Nhập tên hiển thị">
+                        @error('display_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="username">Tên đăng nhập</label>
-                        <input type="text" name="username" value="{{ old('username') }}" class="form-control" id="username" placeholder="Nhập tên đăng nhập">
+                        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="form-control" id="username" placeholder="Nhập tên đăng nhập">
                         @error('username')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Địa chỉ email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" class="form-control" id="email" placeholder="Nhập địa chỉ email">
+                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="form-control" id="email" placeholder="Nhập địa chỉ email">
                         @error('email')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -70,7 +77,7 @@
                         <select name="gender" id="gender" class="form-control">
                             @foreach ($genders as $key => $gender)
                             
-                                <option value="{{ $key }}" @if ($key == 'gender') selected @endif>{{ $gender }}</option>
+                                <option value="{{ $key }}" @if ($key == old('gender')) selected @endif>{{ $gender }}</option>
                             @endforeach
                         </select>
                         @error('gender')
@@ -80,7 +87,7 @@
                     <div class="form-group">
                         <label>Ngày sinh</label>
                         <div class="input-group date" id="birthday" data-target-input="nearest">
-                            <input type="text" value="{{ old('birthday') }}" name="birthday" class="form-control datetimepicker-input" data-target="#birthday">
+                            <input type="text" value="{{ old('birthday', Date('d/m/Y', strtotime($user->birthday))) }}" name="birthday" class="form-control datetimepicker-input" data-target="#birthday">
                             <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -93,7 +100,7 @@
                         <label for="role">Vai trò</label>
                         <select name="role" id="role" class="form-control">
                             @foreach ($roles as $key => $role)
-                                <option value="{{ $key }}" {{ old('role')===$key ? 'selected' : '' }} >{{ $role }}</option>
+                                <option value="{{ $key }}" {{ old('role') === $key ? 'selected' : '' }} >{{ $role }}</option>
                             @endforeach
                         </select>
                         @error('role')
@@ -102,18 +109,18 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Số điện thoại</label>
-                        <input type="text" value="{{ old('phone') }}" name="phone" class="form-control" id="phone" placeholder="Nhập nhập số điện thoại">
+                        <input type="text" value="{{ old('phone', $user->phone) }}" name="phone" class="form-control" id="phone" placeholder="Nhập nhập số điện thoại">
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="about">Thông tin thêm</label>
-                        <textarea name="about" value="{{ old('about') }}" name="about" id="about" class="form-control" rows="3" placeholder="Nhập thông tin thêm"></textarea>
+                        <textarea name="about" value="" name="about" id="about" class="form-control" rows="3" placeholder="Nhập thông tin thêm">{{ old('about', $user->about) }}</textarea>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" value="{{ old('status') }}" name="status" class="custom-control-input" id="status">
+                            <input type="checkbox" {{ old('status', $user->status) ? 'checked' : '' }} name="status" class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                         @error('status')
@@ -136,14 +143,23 @@
                     </div>
                     <div class="form-group">
                         <label for="avatar">Ảnh đại diện</label>
-                        <div class="input-group">
+                        <div class="">
                             <div class="custom-file">
                                 <input type="file" name="avatar" class="custom-file-input" id="avatar">
-                                <label class="custom-file-label" for="avatar">Choose file</label>
+                                <label class="custom-file-label" for="avatar">
+                                    @if (!empty($user->avatar))
+                                        {{ asset($user->avatar) }}
+                                        @else
+                                            Chọn file
+                                    @endif
+                                    
+                                </label>
                             </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div>
+                            <div class="show-img">
+                                @if (!empty($user->avatar))
+                                    <img src="{{  asset($user->avatar) }}" alt="" width="200px" height="200px">
+                                @endif
+                            </div>  
                         </div>
                         @error('avatar')
                             <span class="text-danger">{{ $message }}</span>
