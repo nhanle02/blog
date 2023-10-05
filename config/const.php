@@ -25,4 +25,17 @@ return [
             '3' => 'Khác'
         ],
     ],
+
+    'categories' => [
+        'status' => [
+            '0' => [
+                'label' => 'Chưa kích hoạt',
+                'class' => 'danger',
+            ],
+            '1' => [
+                'label' => 'Kích hoạt',
+                'class' => 'success',
+            ],
+        ],
+    ],
 ];

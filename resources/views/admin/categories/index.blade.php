@@ -17,16 +17,23 @@
 @section('content')
 <div class="row">
     <div class="col-12">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">
+                    <a class="btn btn-primary btn-sm" href="{{ route('admin.categories.create') }}">Thêm mới</a>
+                </h3>
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm" style="width: 200px;">
+                            <input type="text" value="{{ request()->get('name') }}" name="name" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -35,24 +42,41 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
+                            <th>Tên danh mục</th>
+                            <th>Tên danh mục cha</th>
+                            <th>Số lượng trang</th>
+                            <th>Tình trạng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
+                        @foreach ($categories as $category)
+                            <tr>
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->name }}</td>
+                                <td>
+                                    @if ($category->parent == null)
+                                        không có danh mục cha
+                                        @else
+                                            @foreach ($categories as $category1)
+                                                @if ($category->parent == $category1->id)
+                                                    {{ $category1->name }}
+                                                @endif
+                                            @endforeach
+                                    @endif
+                                </td>
+                                <td>{{ $category->count }}</td>
+                                <td><span class="badge badge-{{ $status[$category->status]['class']  }}">{{ $status[$category->status]['label'] }}</span></td>
+                                <td>
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                    <button data-action="{{ route('admin.categories.delete', $category->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                {{ $categories->links() }}
             </div>
-
         </div>
 
     </div>
