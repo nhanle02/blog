@@ -25,19 +25,19 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form action="{{ route('admin.categories.store') }}" method="POST">
+            <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Nhập tên Danh mục</label>
-                        <input type="text" value="{{ old('name') }}" name="name" class="form-control" id="name" placeholder="Nhập tên danh mục">
+                        <input type="text" value="{{ old('name', $category->name) }}" name="name" class="form-control" id="name" placeholder="Nhập tên danh mục">
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="slug">Nhập slug</label>
-                        <input type="text" value="{{ old('slug') }}" name="slug" class="form-control" id="slug" placeholder="Nhập slug">
+                        <input type="text" value="{{ old('slug', $category->slug) }}" name="slug" class="form-control" id="slug" placeholder="Nhập slug">
                         @error('slug')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -46,22 +46,22 @@
                         <label for="parent">Chọn danh mục</label>
                         <select name="parent" id="parent" class="form-control">
                             <option value="0">Không có danh mục cha</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ !empty(old('parent')) ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @foreach ($categories as $cate)
+                                <option value="{{ $cate->id }}" {{ $cate->id == $category->parent ? 'selected' : '' }}>{{ $cate->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="description">Nhập thông tin mô tả</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" placeholder="Nhập thông tin mô tả">{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" class="form-control" rows="3" placeholder="Nhập thông tin mô tả">{{ old('description', $category->description) }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="count">Nhập count</label>
-                        <input type="text" value="{{ old('count') }}" name="count" class="form-control" id="count" placeholder="Nhập count">
+                        <input type="text" value="{{ old('count', $category->count) }}" name="count" class="form-control" id="count" placeholder="Nhập count">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="status" class="custom-control-input" id="status">
+                            <input type="checkbox" {{ $category->status == '1' ? 'checked' : '' }} name="status" class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                     </div>

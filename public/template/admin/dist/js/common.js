@@ -7,3 +7,4 @@ $(function () {
         $modal.modal('show');
     });
 });
+
