@@ -14,8 +14,11 @@ class CategoryService
     public function getCategory($request) 
     {
         $name = $request['name'] ?? '';
-        $category = Category::with('childrenCategories')
-        ->where('name', 'like', "%$name%")
+        $category = Category::with([
+            'childrenCategories' => function($query) use($name){
+                $query->where('name', 'like', "%$name%");
+            }
+        ])
         ->where('parent', '0')
         ->paginate(10);
         $category->appends(['name' => $name]);
