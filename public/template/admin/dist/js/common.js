@@ -11,6 +11,8 @@ $(function () {
 const tagName = document.querySelector('.js-handle-name');
 const tagSlug = document.querySelector('.js-handle-slug');
 
-tagName.onchange = (e) => { 
-    tagSlug.value = e.target.value;
+if (tagName) {
+    tagName.onchange = (e) => { 
+        tagSlug.value = e.target.value;
+    }
 }
