@@ -45,6 +45,10 @@ Route::group([
 
     Route::get('/tags', [TagController::class, 'index'])->name('admin.tags.index');
     Route::get('/tags/create', [TagController::class, 'create'])->name('admin.tags.create');
+    Route::post('/tags/store', [TagController::class, 'store'])->name('admin.tags.store');
+    Route::get('/tags/edit/{id}', [TagController::class, 'edit'])->name('admin.tags.edit');
+    Route::post('/tags/update/{id}', [TagController::class, 'update'])->name('admin.tags.update');
+    Route::delete('/tags/delete/{id}', [TagController::class, 'delete'])->name('admin.tags.delete');
 
     // category
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
