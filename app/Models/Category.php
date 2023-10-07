@@ -19,4 +19,9 @@ class Category extends Model
         'count',
         'status',
     ];
+
+    public function childrenCategories() 
+    {
+        return $this->hasMany(Category::class, 'parent', 'id')->with('childrenCategories');
+    }
 }

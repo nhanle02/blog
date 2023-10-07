@@ -30,14 +30,13 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Nhập tên Danh mục</label>
-                        <input type="text" value="{{ old('name') }}" name="name" class="form-control" id="name" placeholder="Nhập tên danh mục">
+                        <input type="text" value="{{ old('name') }}" name="name" class="form-control js-handle-name" id="name" placeholder="Nhập tên danh mục">
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="slug">Nhập slug</label>
-                        <input type="text" value="{{ old('slug') }}" name="slug" class="form-control" id="slug" placeholder="Nhập slug">
+                        <input type="text" style="display: none;"value="{{ old('slug') }}" name="slug" class="form-control js-handle-slug" id="slug" placeholder="Nhập slug">
                         @error('slug')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -54,10 +53,6 @@
                     <div class="form-group">
                         <label for="description">Nhập thông tin mô tả</label>
                         <textarea name="description" id="description" class="form-control" rows="3" placeholder="Nhập thông tin mô tả">{{ old('description') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="count">Nhập count</label>
-                        <input type="text" value="{{ old('count') }}" name="count" class="form-control" id="count" placeholder="Nhập count">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
