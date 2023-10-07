@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryService 
 {
@@ -13,7 +14,10 @@ class CategoryService
     public function getCategory($request) 
     {
         $name = $request['name'] ?? '';
-        $category = Category::where('name', 'like', "%$name%")->paginate(10);
+        $category = Category::with('childrenCategories')
+        ->where('name', 'like', "%$name%")
+        ->where('parent', '0')
+        ->paginate(10);
         $category->appends(['name' => $name]);
         return $category;
     }
@@ -21,15 +25,11 @@ class CategoryService
     public function store($attributes) 
     {
         $attributes['status'] = !empty($attributes['status']) ? '1' : '0';
-        $attributes['count'] = $attributes['count'] == null ? '0' : $attributes['count'];
-        $attributes['parent'] = $attributes['parent'] ==  '0' ? null : $attributes['parent'];
-        // dd($attributes);
         $category = Category::create([
             'name' => (string)$attributes['name'],
             'description' => $attributes['description'],
             'parent' => $attributes['parent'],
-            'slug' => $attributes['slug'],
-            'count' => $attributes['count'],
+            'slug' => Str::slug($attributes['slug']),
             'status' => $attributes['status'],
         ]);
         return $category;
@@ -44,9 +44,8 @@ class CategoryService
     {
         $category = Category::find($id);
         $category->name = $request['name'];
-        $category->slug = $request['slug'];
+        $category->slug = Str::slug($request['slug']);
         $category->description = $request['description'];
-        $category->count = $request['count'];
         $category->parent = $request['parent'];
         $category->status = !empty($request['status']) ? '1' : '0';
         $category->save();
@@ -55,6 +54,12 @@ class CategoryService
 
     public function delete($id)
     {
+        $category = Category::with('childrenCategories')->find($id);
+        $childrenCategories = $category->childrenCategories;
+        foreach ($childrenCategories as $childCategory) {
+            $childCategory->parent = '0';
+            $childCategory->save();
+        }
         return Category::where('id', $id)->delete();
     }
 }

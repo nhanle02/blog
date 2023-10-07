@@ -43,7 +43,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên danh mục</th>
-                            <th>Tên danh mục cha</th>
+                            <th>Tên danh slug</th>
                             <th>Số lượng trang</th>
                             <th>Tình trạng</th>
                             <th>Hành động</th>
@@ -51,27 +51,26 @@
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
-                            <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
-                                    @if ($category->parent == null)
-                                        không có danh mục cha
-                                        @else
-                                            @foreach ($categories as $category1)
-                                                @if ($category->parent == $category1->id)
-                                                    {{ $category1->name }}
-                                                @endif
-                                            @endforeach
-                                    @endif
-                                </td>
-                                <td>{{ $category->count }}</td>
-                                <td><span class="badge badge-{{ $status[$category->status]['class']  }}">{{ $status[$category->status]['label'] }}</span></td>
-                                <td>
-                                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                                    <button data-action="{{ route('admin.categories.delete', $category->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
-                                </td>
-                            </tr>
+                        {{-- {{ dump($category->childrenCategories) }} --}}
+                        <tr>
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>
+                                {{ $category->slug }}
+                            </td>
+                            <td>{{ $category->count }}</td>
+                            <td><span class="badge badge-{{ $status[$category->status]['class']  }}">{{ $status[$category->status]['label'] }}</span></td>
+                            <td>
+                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                <button data-action="{{ route('admin.categories.delete', $category->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
+                            </td>
+                        </tr>
+                            @if (!empty($category->childrenCategories))
+                                @include('admin.categories.list-category-nested', [
+                                    'childrenCategories' => $category->childrenCategories,
+                                    'slas' => '---',
+                                ])
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

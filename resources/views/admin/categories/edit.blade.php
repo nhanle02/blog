@@ -3,13 +3,13 @@
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-6">
-    <h1 class="m-0">Tạo mới danh mục</h1>
+    <h1 class="m-0">Chỉnh sữa danh mục</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="{{ route('admin.categories.index') }}">Danh mục</a></li>
-        <li class="breadcrumb-item active">Tạo mới</li>
+        <li class="breadcrumb-item active">Chỉnh sửa</li>
     </ol>
     </div>
 </div>
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Tạo danh mục</h3>
+                <h3 class="card-title">Chỉnh sửa</h3>
             </div>
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
@@ -54,10 +54,6 @@
                     <div class="form-group">
                         <label for="description">Nhập thông tin mô tả</label>
                         <textarea name="description" id="description" class="form-control" rows="3" placeholder="Nhập thông tin mô tả">{{ old('description', $category->description) }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="count">Nhập count</label>
-                        <input type="text" value="{{ old('count', $category->count) }}" name="count" class="form-control" id="count" placeholder="Nhập count">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
