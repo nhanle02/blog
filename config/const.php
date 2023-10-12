@@ -41,11 +41,24 @@ return [
 
     'tags' => [
         'status' => [
-            '0' => [
+            '1' => [
                 'label' => 'Chưa kích hoạt',
                 'class' => 'danger',
             ],
+            '2' => [
+                'label' => 'Kích hoạt',
+                'class' => 'success',
+            ],
+        ],
+    ],
+
+    'posts' => [
+        'status' => [
             '1' => [
+                'label' => 'Chưa kích hoạt',
+                'class' => 'danger',
+            ],
+            '2' => [
                 'label' => 'Kích hoạt',
                 'class' => 'success',
             ],

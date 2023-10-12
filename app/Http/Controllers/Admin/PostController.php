@@ -3,13 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index() 
+    protected $postService;
+
+    public function __construct(PostService $postService) 
     {
-        return view('admin.posts.index');
+        $this->postService = $postService;
+    }
+    public function index(Request $request) 
+    {
+        $posts = $this->postService->getPosts($request->all());
+        $status = config('const.posts.status');
+        return view('admin.posts.index', [
+            'posts' => $posts,
+            'status' => $status,
+        ]);
     }
 
     public function create() 

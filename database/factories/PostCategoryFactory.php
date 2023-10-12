@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class PostFactory extends Factory
+class PostCategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +14,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->name(),
-            'slug' => Str::slug($this->faker->name()),
-            'status' => rand(1, 2),
-            'create_by' => rand(1, 100),
+            'post_id' => rand(1, 100),
+            'category_id' => rand(1, 10),
         ];
     }
 }
