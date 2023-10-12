@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="status" {{ !empty($tag->status) ? 'checked' : '' }} class="custom-control-input" id="status">
+                            <input type="checkbox" name="status" {{ $tag->status == '2' ? 'checked' : '' }} class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                     </div>
