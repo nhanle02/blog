@@ -25,6 +25,15 @@ class UserService
         $users->appends(['s' => $keyword, 'role' => $role]);
         return $users;
     }
+    /**
+     * Get all users
+     * 
+     * @return mixed 
+     */
+    public function getAllUsers()
+    {
+        return User::get();
+    }
 
     public function store($attributes) {
         $upload = $this->uploadFile();

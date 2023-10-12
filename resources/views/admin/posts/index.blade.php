@@ -23,13 +23,19 @@
                 <div class="card-tools">
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
+                            <select name="uid" id="" class="form-control">
+                                <option value="">Tất cả</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id  }}" {{ $user->id == request('uid') ? 'selected' : '' }}>{{ $user->first_name . " " . $user->last_name }}</option>
+                                    @endforeach
+                            </select>
                             <select name="status" id="" class="form-control">
                                 <option value="">Tất cả</option>
                                     @foreach ($status as $key => $sta)
                                         <option value="{{ $key }}" {{ $key == request('status') ? 'selected' : '' }}>{{ $sta['label'] }}</option>
                                     @endforeach
                             </select>
-                            <input type="text" name="name" value="{{ request()->get('name') }}" class="form-control float-right" placeholder="Search">
+                            <input type="text" name="s" value="{{ request()->get('s') }}" class="form-control float-right" placeholder="Search">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                             </div>
@@ -67,7 +73,7 @@
                                 </td>
                                 <td>{{ $post->slug }}</td>
                                 <td>
-                                    {{ $post->users->first_name . " " . $post->users->last_name}}
+                                    {{ $post->user->first_name . " " . $post->user->last_name}}
                                 </td>
                                 <td>
                                     @foreach ($post->categories as $key => $category)

@@ -31,7 +31,7 @@ class Post extends Model
         return $this->belongsToMany(Category::class, 'post_category');
     }
 
-    public function users()
+    public function user()
     {
         return $this->hasOne(User::class, 'id', 'create_by');
     }

@@ -9,14 +9,21 @@ class PostService
 {
     public function getPosts($request) 
     {
-        $name = $request['name'] ?? '';
+        $s = $request['s'] ?? '';
         $status = $request['status'] ?? '';
+        $uid = $request['uid'] ?? '';
         $posts = Post::when(!empty($status), function($queryStatus) use($status) {
             $queryStatus->where('status', $status);
         })
-        ->with(['categories', 'users'])->paginate(20);
+        ->when(!empty($uid), function($queryUser) use($uid) {
+            $queryUser->whereHas('user', function($queryExistsUser) use($uid){
+                $queryExistsUser->where('id', $uid);
+            });
+        })
+        ->where('title', 'like', "%$s%")
+        ->with(['categories', 'user'])->paginate(20);
 
-        $posts->appends(['name' => $name, 'status' => $status]);
+        $posts->appends(['s' => $s, 'status' => $status, 'uid' => $uid]);
         return $posts;
     }
 }
