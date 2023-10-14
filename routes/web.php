@@ -42,6 +42,7 @@ Route::group([
 
     Route::get('/posts', [PostController::class, 'index'])->name('admin.posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('admin.posts.create');
+    Route::post('/posts/store', [PostController::class, 'store'])->name('admin.posts.store');
 
     Route::get('/tags', [TagController::class, 'index'])->name('admin.tags.index');
     Route::get('/tags/create', [TagController::class, 'create'])->name('admin.tags.create');

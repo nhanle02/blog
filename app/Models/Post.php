@@ -17,7 +17,7 @@ class Post extends Model
         'description',
         'content',
         'status',
-        'created_by',
+        'create_by',
         'updated_by',
         'comment_count',
         'comment_status',

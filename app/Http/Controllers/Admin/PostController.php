@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Services\PostService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -32,6 +33,19 @@ class PostController extends Controller
 
     public function create() 
     {
-        return view('admin.posts.create');
+        $categories = $this->postService->getCategories();
+        $tags = $this->postService->getTags();
+        return view('admin.posts.create', [
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
+    }
+    public function store(PostRequest $request) 
+    {
+        $posts = $this->postService->store($request->all());
+        if ($posts) {
+            return redirect()->route('admin.posts.index')->with('success', 'Tạo thành công!!!');
+        }
+        return back()->with('error', 'Tạo thất bại!!!');
     }
 }

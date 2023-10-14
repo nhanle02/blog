@@ -13,13 +13,17 @@
     </div>
 </div>
 @stop
-
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
             <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">
+                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary btn-sm">Tạo mới</a>
+                </h3>
                 <div class="card-tools">
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
