@@ -7,6 +7,7 @@ use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Support\Str;
+use File;
 
 class PostService
 {
@@ -50,10 +51,10 @@ class PostService
             'description' => $request['description'],
             'slug' => Str::slug($request['slug']),
             'content' => $request['content'],
-            'status' => !empty($request['status']) ? '2' : '1',
+            'status' => !empty($request['status']) ? '1' : '2',
             'create_by' => $request['create_by'] ?? 1,
-            'is_featured' => !empty($request['is_featured']) ? '1' : '0',
-            'comment_status' => !empty($request['comment_status']) ? '2' : '1',
+            'is_featured' => !empty($request['is_featured']) ? '0' : '1',
+            'comment_status' => !empty($request['comment_status']) ? '1' : '2',
             'image' => !empty($upload) ? $upload : null,
         ];
         $posts = Post::create($data);
@@ -100,5 +101,42 @@ class PostService
                 return false;
             }
         }
+    }
+
+    public function getPost($id)
+    {
+        $post = Post::find($id);
+        return $post;
+    }
+
+    public function update($request, $id) 
+    {
+        $post = Post::find($id);
+        $oldImage = $post->image;
+        $post->title = $request['title'];
+        $post->slug = Str::slug($request['slug']);
+        $post->description = $request['description'];
+        $post->content = $request['content'];
+        $post->status = !empty($request['status']) ? '1' : '2';
+        $post->create_by = $request['create_by'];
+        $post->update_by = $request['create_by'];
+        $post->comment_status = !empty($request['comment_status']) ? '1' : '2';
+        $post->is_featured = !empty($request['is_featured']) ? '0' : '1';
+        $post->updated_at = strftime('%Y-%m-%d %H:%M:%S', time() + 7*3600);
+        $upload = $this->uploadFile();
+        $post->image = !empty($upload) ? $upload : $post->image;
+        $post->categories()->sync($request['categories']);
+        $post->tags()->sync($request['tags']);
+        $post->save();
+        if ($upload) {
+            $this->deleteFile($oldImage);
+        }
+        return $post;
+    }
+
+    public function deleteFile($oldImage) 
+    {
+        $oldAvatar = str_replace("/storage", "app/public", $oldImage);
+        File::delete(storage_path($oldAvatar));
     }
 } 

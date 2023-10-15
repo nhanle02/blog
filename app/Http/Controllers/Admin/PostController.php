@@ -48,4 +48,25 @@ class PostController extends Controller
         }
         return back()->with('error', 'Tạo thất bại!!!');
     }
+
+    public function edit($id) 
+    {
+        $categories = $this->postService->getCategories();
+        $tags = $this->postService->getTags();
+        $post = $this->postService->getPost($id);
+        return view('admin.posts.edit', [
+            'categories' => $categories,
+            'tags' => $tags,
+            'post' => $post
+        ]);
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = $this->postService->update($request->all(), $id);
+        if ($post) {
+            return redirect()->route('admin.posts.index')->with('success', 'Cập nhật thành công!!!');
+        }
+        return back()->with('error', 'Cập nhật thất bại!!!');
+    }
 }

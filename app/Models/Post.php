@@ -18,7 +18,7 @@ class Post extends Model
         'content',
         'status',
         'create_by',
-        'updated_by',
+        'update_by',
         'comment_count',
         'comment_status',
         'is_featured',
@@ -35,4 +35,10 @@ class Post extends Model
     {
         return $this->hasOne(User::class, 'id', 'create_by');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag');
+    }
 }
+

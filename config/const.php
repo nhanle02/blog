@@ -42,12 +42,12 @@ return [
     'tags' => [
         'status' => [
             '1' => [
-                'label' => 'Chưa kích hoạt',
-                'class' => 'danger',
+                'label' => 'kích hoạt',
+                'class' => 'success',
             ],
             '2' => [
-                'label' => 'Kích hoạt',
-                'class' => 'success',
+                'label' => 'Chưa Kích hoạt',
+                'class' => 'danger',
             ],
         ],
     ],
@@ -55,12 +55,12 @@ return [
     'posts' => [
         'status' => [
             '1' => [
-                'label' => 'Chưa kích hoạt',
-                'class' => 'danger',
+                'label' => 'kích hoạt',
+                'class' => 'success',
             ],
             '2' => [
-                'label' => 'Kích hoạt',
-                'class' => 'success',
+                'label' => 'Chưa Kích hoạt',
+                'class' => 'danger',
             ],
         ],
     ],

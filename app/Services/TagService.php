@@ -19,7 +19,7 @@ class TagService
     public function store($attributes) 
     {
         $attributes['slug'] = Str::slug($attributes['slug']);
-        $attributes['status'] = !empty($attributes['status']) ? '2' : '1';
+        $attributes['status'] = !empty($attributes['status']) ? '1' : '2';
         $tags = Tag::create($attributes);
         return $tags;
     }
@@ -33,7 +33,7 @@ class TagService
     {
         $tag = Tag::find($id);
         $tag->name = $request['name'];
-        $tag->status = !empty($request['status']) ? '2' : '1';
+        $tag->status = !empty($request['status']) ? '1' : '2';
         $tag->description = $request['description'];
         $tag->slug = Str::slug($request['slug']);
         $tag->save();

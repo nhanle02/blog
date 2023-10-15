@@ -95,7 +95,7 @@
                                 </td>
                                 <td><span class="badge badge-{{ $status[$post->status]['class']  }}">{{ $status[$post->status]['label'] }}</span></td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">Chỉnh sửa</a>
+                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary btn-sm">Chỉnh sửa</a>
                                     <button class="btn btn-danger btn-sm">Xoá</button>
                                 </td>
                             </tr>
