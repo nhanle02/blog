@@ -45,6 +45,7 @@ Route::group([
     Route::post('/posts/store', [PostController::class, 'store'])->name('admin.posts.store');
     Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('admin.posts.edit');
     Route::post('/posts/update/{id}', [PostController::class, 'update'])->name('admin.posts.update');
+    Route::delete('/posts/delete/{id}', [PostController::class, 'delete'])->name('admin.posts.delete');
 
     Route::get('/tags', [TagController::class, 'index'])->name('admin.tags.index');
     Route::get('/tags/create', [TagController::class, 'create'])->name('admin.tags.create');

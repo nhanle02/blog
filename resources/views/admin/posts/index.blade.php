@@ -96,7 +96,7 @@
                                 <td><span class="badge badge-{{ $status[$post->status]['class']  }}">{{ $status[$post->status]['label'] }}</span></td>
                                 <td>
                                     <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary btn-sm">Chỉnh sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xoá</button>
+                                    <button data-action="{{ route('admin.posts.delete', $post->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
                                 </td>
                             </tr>
                         @endforeach

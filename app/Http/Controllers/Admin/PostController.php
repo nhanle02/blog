@@ -69,4 +69,13 @@ class PostController extends Controller
         }
         return back()->with('error', 'Cập nhật thất bại!!!');
     }
+
+    public function delete($id)
+    {
+        $post = $this->postService->delete($id);
+        if ($post) {
+            return back()->with('success', 'Xoá thành công!!!');
+        }
+        return back()->with('error', 'Xoá thất bại!!!');
+    }
 }

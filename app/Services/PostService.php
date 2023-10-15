@@ -139,4 +139,21 @@ class PostService
         $oldAvatar = str_replace("/storage", "app/public", $oldImage);
         File::delete(storage_path($oldAvatar));
     }
+
+    public function delete($id) 
+    {
+        $post = Post::find($id);
+        if (!$post) {
+            return false;
+        }
+        $post->tags()->detach();
+        $post->categories()->detach();
+        $postDelete = $post->delete();
+        if ($postDelete) {
+            $this->deleteFile($post->image);
+            return true;
+        } else {
+            return false;
+        }
+    }
 } 
