@@ -13,23 +13,33 @@
     </div>
 </div>
 @stop
-
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
             <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">
+                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary btn-sm">Tạo mới</a>
+                </h3>
                 <div class="card-tools">
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
+                            <select name="uid" id="" class="form-control">
+                                <option value="">Tất cả</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id  }}" {{ $user->id == request('uid') ? 'selected' : '' }}>{{ $user->first_name . " " . $user->last_name }}</option>
+                                    @endforeach
+                            </select>
                             <select name="status" id="" class="form-control">
                                 <option value="">Tất cả</option>
                                     @foreach ($status as $key => $sta)
                                         <option value="{{ $key }}" {{ $key == request('status') ? 'selected' : '' }}>{{ $sta['label'] }}</option>
                                     @endforeach
                             </select>
-                            <input type="text" name="name" value="{{ request()->get('name') }}" class="form-control float-right" placeholder="Search">
+                            <input type="text" name="s" value="{{ request()->get('s') }}" class="form-control float-right" placeholder="Search">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                             </div>
@@ -67,7 +77,7 @@
                                 </td>
                                 <td>{{ $post->slug }}</td>
                                 <td>
-                                    {{ $post->users->first_name . " " . $post->users->last_name}}
+                                    {{ $post->user->first_name . " " . $post->user->last_name}}
                                 </td>
                                 <td>
                                     @foreach ($post->categories as $key => $category)
@@ -85,8 +95,8 @@
                                 </td>
                                 <td><span class="badge badge-{{ $status[$post->status]['class']  }}">{{ $status[$post->status]['label'] }}</span></td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">Chỉnh sửa</a>
-                                    <button class="btn btn-danger btn-sm">Xoá</button>
+                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary btn-sm">Chỉnh sửa</a>
+                                    <button data-action="{{ route('admin.posts.delete', $post->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
                                 </td>
                             </tr>
                         @endforeach
