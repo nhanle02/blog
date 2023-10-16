@@ -15,9 +15,14 @@ class PageController extends Controller
     {
         $this->pageService = $pageService;
     }
-    public function index() 
+    public function index(Request $request) 
     {
-        return view('admin.pages.index');
+        $pages = $this->pageService->getPages($request->all());
+        $status = config('const.pages.status');
+        return view('admin.pages.index', [
+            'pages' => $pages,
+            'status' => $status
+        ]);
     }
     public function create() 
     {

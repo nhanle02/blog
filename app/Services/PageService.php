@@ -40,4 +40,18 @@ class PageService
             }
         }
     }
+
+    public function getPages($request)
+    {
+        $status = $request['status'] ?? '';
+        $s = $request['s'] ?? '';
+        $pages = Page::with(['user' => function ($queryName) use($s) {
+            $queryName->where('first_name', 'like', "%$s%")->orWhere('last_name', 'like', "%$s%");
+        }])->when(!empty($status), function ($queryStatus) use($status) {
+            $queryStatus->where('status', '=' , $status);
+        })->where('title', 'like', "%$s%")
+        ->paginate(10);
+        $pages->appends(['status' => $status, 's' => $s]);
+        return $pages;
+    }
 }

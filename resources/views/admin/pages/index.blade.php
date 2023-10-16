@@ -3,13 +3,13 @@
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-6">
-    <h1 class="m-0">Danh sách trang</h1>
+        <h1 class="m-0">Danh sách trang</h1>
     </div>
     <div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
-        <li class="breadcrumb-item active">Danh sách</li>
-    </ol>
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách</li>
+        </ol>
     </div>
 </div>
 @stop
@@ -22,14 +22,24 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title">
+                    <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Tạo mới</a>
+                </h3>
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <select name="status" id="" class="form-control">
+                                <option value="">Tất cả</option>
+                                @foreach ($status as $key => $sta)
+                                    <option {{ request()->get('status') == $key ? 'selected' : '' }} value="{{ $key }}">{{ $sta['label'] }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="s" value="{{ request()->get('s') }}" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -37,23 +47,41 @@
                 <table class="table table-hover text-nowrap">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
+                            <th>Tiêu đề</th>
+                            <th>Slug</th>
+                            <th>Trạng thái</th>
+                            <th>Người tạo</th>
+                            <th>image</th>
+                            <th>Ngày tạo</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="tag tag-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
+                        @foreach ($pages as $page)
+                            <tr>
+                                <td>{{ $page->title }}</td>
+                                <td>{{ $page->slug }}</td>
+                                <td>
+                                    <span class="badge badge-{{ $status[$page->status]['class'] }}">{{ $status[$page->status]['label'] }}</span>    
+                                </td>
+                                <td>{{ $page->user->first_name . ' ' . $page->user->last_name }}</td>
+                                <td>
+                                    @if (!empty($page->image))
+                                        <img src="{{ $page->image }}" alt="ảnh page" width="100px" height="100px">
+                                        @else
+                                            không có ảnh
+                                    @endif    
+                                </td>
+                                <td>{{ $page->created_at }}</td>
+                                <td>
+                                    <a href="" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                    <button data-action="" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                {{ $pages->links() }}
             </div>
 
         </div>

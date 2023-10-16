@@ -77,4 +77,17 @@ return [
             ],
         ],
     ],
+
+    'pages' => [
+        'status' => [
+            '1' => [
+                'label' => 'Kích hoạt',
+                'class' => 'success',
+            ],
+            '2' => [
+                'label' => 'Chưa kích hoạt',
+                'class' => 'warning',
+            ],
+        ],
+    ],
 ];
