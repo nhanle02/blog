@@ -74,8 +74,8 @@
                                 </td>
                                 <td>{{ $page->created_at }}</td>
                                 <td>
-                                    <a href="" class="btn btn-info btn-sm">Chỉnh sửa</a>
-                                    <button data-action="" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
+                                    <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                    <button data-action="{{ route('admin.pages.delete', $page->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
                                 </td>
                             </tr>
                         @endforeach

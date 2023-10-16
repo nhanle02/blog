@@ -36,4 +36,29 @@ class PageController extends Controller
         }
         return back()->with('error', 'Tạo thất bại!!!');
     }
+
+    public function edit($id) 
+    {
+        $page = $this->pageService->getPageById($id);
+        return view('admin.pages.edit', [
+            'page' => $page,
+        ]);
+    }
+
+    public function update($id, PageRequest $request)
+    {
+        $page = $this->pageService->update($id, $request->all());
+        if ($page) {
+            return redirect()->route('admin.pages.index')->with('success', 'Cập nhật thành công!!!');
+        }
+        return back()->with('error', 'Cập nhật thất bại!!!');
+    }
+    public function delete($id) 
+    {
+        $page = $this->pageService->delete($id);
+        if ($page) {
+            return redirect()->route('admin.pages.index')->with('success', 'Xoá thành công!!!');
+        }
+        return back()->with('error', 'Xoá thất bại!!!');
+    }
 }

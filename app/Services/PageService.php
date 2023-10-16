@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Models\Page;
 use Illuminate\Support\Str;
+use File;
 
 class PageService 
 {
@@ -53,5 +54,44 @@ class PageService
         ->paginate(10);
         $pages->appends(['status' => $status, 's' => $s]);
         return $pages;
+    }
+
+    public function getPageById($id) 
+    {
+        return Page::find($id);
+    }
+
+    public function update($id, $request) 
+    {
+        $page = Page::find($id);
+        $oldImage = $page->image;
+        $page->title = $request['title'];
+        $page->slug = Str::slug($request['slug']);
+        $page->status = !empty($request['status']) ? '1' : '2';
+        $page->description = $request['description'];
+        $page->content = $request['content'];
+        $page->create_by = $request['create_by'];
+        $page->update_by = $request['create_by'];
+        $page->updated_at = strftime('%Y-%m-%d %H:%M:%S', time() + 7*3600);
+        $upload = $this->fileUpload();
+        $page->image = !empty($upload) ? $upload : $page->image;
+        $page->save();
+        if($upload) {
+            $this->deleteFile($oldImage);
+        }
+        return $page;
+    }
+    
+    public function deleteFile($oldAvatar) 
+    {
+        $oldAvatar = str_replace("/storage", "app/public", $oldAvatar);
+        File::delete(storage_path($oldAvatar));
+    }
+
+    public function delete($id)
+    {
+        $page = Page::find($id);
+        $this->deleteFile($page->image);
+        return Page::where('id', $id)->delete();
     }
 }

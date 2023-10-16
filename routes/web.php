@@ -72,6 +72,9 @@ Route::group([
     Route::get('/pages', [PageController::class, 'index'])->name('admin.pages.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('admin.pages.create');
     Route::post('/pages/store', [PageController::class, 'store'])->name('admin.pages.store');
+    Route::get('/pages/edit/{id}', [PageController::class, 'edit'])->name('admin.pages.edit');
+    Route::post('/pages/update/{id}', [PageController::class, 'update'])->name('admin.pages.update');
+    Route::delete('/pages/delete/{id}', [PageController::class, 'delete'])->name('admin.pages.delete');
 
     Route::get('/comments', [CommentController::class, 'index'])->name('admin.comments.index');
 
