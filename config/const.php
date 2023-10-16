@@ -64,4 +64,17 @@ return [
             ],
         ],
     ],
+
+    'contacts' => [
+        'status' => [
+            '1' => [
+                'label' => 'Đã xử lý',
+                'class' => 'success',
+            ],
+            '2' => [
+                'label' => 'Chưa xử lý',
+                'class' => 'warning',
+            ],
+        ],
+    ],
 ];
