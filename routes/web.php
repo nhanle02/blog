@@ -65,6 +65,9 @@ Route::group([
 
 
     Route::get('/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('/contacts/content/{id}', [ContactController::class, 'content'])->name('admin.contacts.content');
+    Route::get('/contacts/feedback/{id}', [ContactController::class, 'feedback'])->name('admin.contacts.feedback');
+    Route::post('/contacts/send/{id}', [ContactController::class, 'sendEmail'])->name('admin.contacts.send');
     
     Route::get('/pages', [PageController::class, 'index'])->name('admin.pages.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('admin.pages.create');
