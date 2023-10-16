@@ -71,6 +71,7 @@ Route::group([
     
     Route::get('/pages', [PageController::class, 'index'])->name('admin.pages.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('admin.pages.create');
+    Route::post('/pages/store', [PageController::class, 'store'])->name('admin.pages.store');
 
     Route::get('/comments', [CommentController::class, 'index'])->name('admin.comments.index');
 
