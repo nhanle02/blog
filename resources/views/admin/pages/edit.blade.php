@@ -3,13 +3,13 @@
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-6">
-    <h1 class="m-0">Thêm trang mới</h1>
+    <h1 class="m-0">Cập nhật trang</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="{{ route('admin.pages.index') }}">Danh sách</a></li>
-        <li class="breadcrumb-item active">Thêm mới</li>
+        <li class="breadcrumb-item active">Cập nhật</li>
     </ol>
     </div>
 </div>
@@ -20,36 +20,36 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Thêm trang mới</h3>
+                <h3 class="card-title">Cập nhật</h3>
             </div>
-            <form action="{{ route('admin.pages.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.pages.update', $page->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">Nhập tiêu đề</label>
-                        <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title" placeholder="Nhập tiêu đề">
+                        <input type="text" name="title" value="{{ old('title', $page->title) }}" class="form-control" id="title" placeholder="Nhập tiêu đề">
                         @error('title')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="slug">Nhập slug</label>
-                        <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="Nhập slug">
+                        <input type="text" name="slug" value="{{ old('slug', $page->slug) }}" class="form-control" id="slug" placeholder="Nhập slug">
                         @error('slug')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="description">Nhập mô tả</label>
-                        <textarea class="form-control" name="description" id="description" cols="25" rows="10" placeholder="Nhập mô tả">{{ old('description') }}</textarea>
+                        <textarea class="form-control" name="description" id="description" cols="25" rows="10" placeholder="Nhập mô tả">{{ old('description', $page->description) }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="content">Nhập nội dung</label>
-                        <textarea class="form-control" name="content" id="content" cols="25" rows="10" placeholder="Nhập nội dung">{{ old('content') }}</textarea>
+                        <textarea class="form-control" name="content" id="content" cols="25" rows="10" placeholder="Nhập nội dung">{{ old('content', $page->content) }}</textarea>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="status" class="custom-control-input" id="status">
+                            <input type="checkbox" {{ $page->status == '1' ? 'checked' : ''}} name="status" class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                     </div>
@@ -62,14 +62,24 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" name="image" class="custom-file-input" id="image">
-                                <label class="custom-file-label" for="image">Choose file</label>
+                                <label class="custom-file-label" for="image">
+                                @if (!empty($page->image))
+                                    {{ $page->image }}
+                                    @else
+                                    Choose image
+                                @endif
+                                </label>
                             </div>
                         </div>
+                        @if (!empty($page->image))
+                            <img src="{{ $page->image }}" alt="ảnh page" width="200px" height="150px">
+                        @endif
                     </div>
                 </div>
         
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('admin.pages.index') }}" class="btn btn-warning">Quay lại</a>
                 </div>
             </form>
         </div>
