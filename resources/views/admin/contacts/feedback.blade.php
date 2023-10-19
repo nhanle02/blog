@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Nhập thông tin mô tả</label>
-                        <textarea name="content" id="content" class="form-control" rows="3" placeholder="Nhập nội dung gửi"></textarea>
+                        <textarea name="content" id="content" class="form-control" rows="3" placeholder="Nhập nội dung gửi">{{ old('content') }}</textarea>
                         @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

@@ -28,6 +28,6 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('template/admin/dist/js/adminlte.js') }}"></script>
 <script src="{{ asset('template/admin/dist/js/common.js') }}"></script>
-
+@yield('summernote')
 
 @stack('js')

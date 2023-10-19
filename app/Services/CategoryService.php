@@ -46,6 +46,7 @@ class CategoryService
     public function update($request, $id) 
     {
         $category = Category::find($id);
+        $category->count = $category->posts->count();
         $category->name = $request['name'];
         $category->slug = Str::slug($request['slug']);
         $category->description = $request['description'];
