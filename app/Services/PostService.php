@@ -70,6 +70,7 @@ class PostService
                     'created_at' => strftime('%Y-%m-%d %H:%M:%S', time() + 7*3600),
                     'updated_at' => strftime('%Y-%m-%d %H:%M:%S', time() + 7*3600),
                 ];
+                Category::where('id', $category)->increment('count');
             }
             foreach ($tags as $tag) {
                 $postTags[] = [
@@ -145,6 +146,9 @@ class PostService
         $post = Post::find($id);
         if (!$post) {
             return false;
+        }
+        foreach($post->categories as $category) {
+            Category::where('id', $category->id)->decrement('count');
         }
         $post->tags()->detach();
         $post->categories()->detach();

@@ -151,3 +151,12 @@
     </div>
 </div>
 @stop
+@section('summernote')
+<script>
+    $(document).ready(function() {
+        $('#content').summernote({
+          height: 300,
+        });
+    });
+</script>
+@stop
