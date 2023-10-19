@@ -90,4 +90,17 @@ return [
             ],
         ],
     ],
+
+    'comments' => [
+        'status' => [
+            '1' => [
+                'label' => 'Hoạt động',
+                'class' => 'success',
+            ],
+            '2' => [
+                'label' => 'Spam',
+                'class' => 'warning',
+            ],
+        ],
+    ],
 ];

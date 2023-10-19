@@ -77,6 +77,7 @@ Route::group([
     Route::delete('/pages/delete/{id}', [PageController::class, 'delete'])->name('admin.pages.delete');
 
     Route::get('/comments', [CommentController::class, 'index'])->name('admin.comments.index');
+    Route::get('/comments/create', [CommentController::class, 'create'])->name('admin.comments.create');
 
     Route::get('/settings', [SettingController::class, 'setting'])->name('admin.settings.index');
 });
