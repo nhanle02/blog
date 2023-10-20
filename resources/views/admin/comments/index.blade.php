@@ -64,8 +64,8 @@
                                 <td><span class="badge badge-{{ $status[$comment->status]['class'] }}">{{ $status[$comment->status]['label'] }}</span></td>
                                 <td>{{ $comment->created_at }}</td>
                                 <td>
-                                    <a href="{{ route('admin.comments.edit', $comment->id) }}" class="btn btn-info">Chỉnh sửa</a>
-                                    <a href="" class="btn btn-danger">Xoá</a>
+                                    <a href="{{ route('admin.comments.edit', $comment->id) }}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                                    <button data-action="{{ route('admin.comments.delete', $comment->id) }}" class="btn btn-danger btn-sm js-display-modal-delete">Xoá</button>
                                 </td>
                             </tr>
                         @endforeach

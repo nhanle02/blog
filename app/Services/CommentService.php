@@ -56,4 +56,9 @@ class CommentService
         $comment->save();
         return $comment;
     }
+
+    public function delete($id)
+    {
+        return Comment::find($id)->delete();
+    }
 }

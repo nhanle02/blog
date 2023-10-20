@@ -65,4 +65,12 @@ class CommentController extends Controller
         }
         return back()->with('error', 'Cập nhật thất bại!!!');
     }
+    public function delete($id)
+    {
+        $comment = $this->commentService->delete($id);
+        if ($comment) {
+            return redirect()->route('admin.comments.index')->with('success', 'Xoá thành công!!!');
+        }
+        return back()->with('error', 'Xoá thất bại!!!');
+    }
 }

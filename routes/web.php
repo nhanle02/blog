@@ -81,6 +81,7 @@ Route::group([
     Route::post('/comments/store', [CommentController::class, 'store'])->name('admin.comments.store');
     Route::get('/comments/edit/{id}', [CommentController::class, 'edit'])->name('admin.comments.edit');
     Route::post('/comments/update/{id}', [CommentController::class, 'update'])->name('admin.comments.update');
+    Route::delete('/comments/delete/{id}', [CommentController::class, 'delete'])->name('admin.comments.delete');
 
     Route::get('/settings', [SettingController::class, 'setting'])->name('admin.settings.index');
 });
