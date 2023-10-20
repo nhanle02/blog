@@ -26,12 +26,20 @@
                     <a href="{{ route('admin.comments.create') }}" class="btn btn-success">Tạo mới</a>
                 </h3>
                 <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <select name="user" class="form-control">
+                                <option value="">Tất cả</option>
+                                @foreach ($users as $user)
+                                    <option {{ request()->get('user') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->first_name . ' ' . $user->last_name }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="content" value="{{ request()->get('content') }}" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 

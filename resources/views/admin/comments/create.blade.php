@@ -25,22 +25,38 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <form action="" method="POST">
+            <form action="{{ route('admin.comments.store') }}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="name">Nhập tên thẻ</label>
-                        <input type="text" name="name" class="form-control js-handle-name" id="name" placeholder="Nhập tên thẻ">
-                        @error('name')
+                        <label for="post_id">Tên bài viết</label>
+                        <select name="post_id" id="" class="form-control">
+                            @foreach ($posts as $post)
+                                <option {{ old('post_id') == $post->id ? 'selected' : '' }} value="{{ $post->id }}">{{ $post->title }}</option>
+                            @endforeach
+                        </select>
+                        @error('post_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <input type="slug" style="display: none;" name="slug" class="form-control js-handle-slug" id="slug">
+                        <input type="text" style="display: none;" value="2" name="user_id" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="description">Mô tả</label>
-                        <textarea class="form-control" name="description" id="description" placeholder="Nhập mổ tả chi tiết"></textarea>
+                        <label for="">Comment_id</label>
+                        <select name="comment_id" id="" class="form-control">
+                            <option value="">Không có</option>
+                            @foreach ($comments as $comment)
+                                <option {{ old('comment_id') == $comment->id ? 'selected' : '' }} value="{{ $comment->id }}">{{ $comment->id }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('comment_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="form-group">
+                        <label for="content">Mô tả</label>
+                        <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
@@ -55,9 +71,14 @@
                     <a class="btn btn-warning" href="{{ route('admin.comments.index') }}">Quay lại</a>
                 </div>
             </form>
-
         </div>
-
     </div>
 </div>
+@stop
+@section('summernote')
+<script>
+    $(document).ready(function() {
+        $('#content').summernote();
+    });
+</script>
 @stop

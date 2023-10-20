@@ -78,6 +78,7 @@ Route::group([
 
     Route::get('/comments', [CommentController::class, 'index'])->name('admin.comments.index');
     Route::get('/comments/create', [CommentController::class, 'create'])->name('admin.comments.create');
+    Route::post('/comments/store', [CommentController::class, 'store'])->name('admin.comments.store');
 
     Route::get('/settings', [SettingController::class, 'setting'])->name('admin.settings.index');
 });
