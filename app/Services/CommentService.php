@@ -39,4 +39,21 @@ class CommentService
         $request['status'] = !empty($request['status']) ? '1' : '2';
         return Comment::create($request);
     }
+
+    public function getCommentId($id)
+    {
+        return Comment::find($id);
+    }
+
+    public function update($request, $id) 
+    {
+        $comment = Comment::find($id);
+        $comment->post_id = $request['post_id'];
+        $comment->user_id = $request['user_id'];
+        $comment->comment_id = $request['comment_id'];
+        $comment->content = $request['content'];
+        $comment->status = !empty($request['status']) ? '1' : '2';
+        $comment->save();
+        return $comment;
+    }
 }

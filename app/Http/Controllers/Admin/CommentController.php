@@ -45,4 +45,24 @@ class CommentController extends Controller
         }
         return back()->with('error', 'Tạo thất bại!!!');
     }
+
+    public function edit($id) 
+    {
+        $comment = $this->commentService->getCommentId($id);
+        $comments = $this->commentService->getAllComments();
+        $posts = $this->commentService->getPosts();
+        return view('admin.comments.edit', [
+            'comment' => $comment,
+            'comments' => $comments,
+            'posts' => $posts
+        ]);
+    }
+    public function update(CommentRequest $request, $id) 
+    {
+        $comment = $this->commentService->update($request->all(), $id);
+        if ($comment) {
+            return redirect()->route('admin.comments.index')->with('success', 'Cập nhật thành công!!!');
+        }
+        return back()->with('error', 'Cập nhật thất bại!!!');
+    }
 }

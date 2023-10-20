@@ -64,7 +64,7 @@
                                 <td><span class="badge badge-{{ $status[$comment->status]['class'] }}">{{ $status[$comment->status]['label'] }}</span></td>
                                 <td>{{ $comment->created_at }}</td>
                                 <td>
-                                    <a href="" class="btn btn-info">Chỉnh sửa</a>
+                                    <a href="{{ route('admin.comments.edit', $comment->id) }}" class="btn btn-info">Chỉnh sửa</a>
                                     <a href="" class="btn btn-danger">Xoá</a>
                                 </td>
                             </tr>
