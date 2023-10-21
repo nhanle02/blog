@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" {{ $comment->status == '1' ? 'checked' : 'ss' }} name="status" class="custom-control-input" id="status">
+                            <input type="checkbox" {{ $comment->status == '1' ? 'checked' : '' }} name="status" class="custom-control-input" id="status">
                             <label class="custom-control-label" for="status">Trạng thái</label>
                         </div>
                     </div>
@@ -83,7 +83,9 @@
 @section('summernote')
 <script>
     $(document).ready(function() {
-        $('#content').summernote();
+        $('#content').summernote({
+            height: 300,
+        });
     });
 </script>
 @stop
