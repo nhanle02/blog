@@ -8,7 +8,7 @@
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.comments.index') }}">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.comments.index') }}">Danh sách</a></li>
         <li class="breadcrumb-item active">Danh sách</li>
     </ol>
     </div>
@@ -78,7 +78,9 @@
 @section('summernote')
 <script>
     $(document).ready(function() {
-        $('#content').summernote();
+        $('#content').summernote({
+            height: 300
+        });
     });
 </script>
 @stop
