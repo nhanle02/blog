@@ -29,7 +29,6 @@ class PostRequest extends FormRequest
             'status' => 'nullable|in:on',
             'comment_status' => 'nullable|in:on',
             'is_featured' => 'nullable|in:on',
-            'create_by' => 'required',
             'image' => 'nullable|max:255',
             'categories' => 'required',
         ];

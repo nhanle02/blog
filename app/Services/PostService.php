@@ -52,7 +52,6 @@ class PostService
             'slug' => Str::slug($request['slug']),
             'content' => $request['content'],
             'status' => !empty($request['status']) ? '1' : '2',
-            'create_by' => $request['create_by'] ?? 1,
             'is_featured' => !empty($request['is_featured']) ? '0' : '1',
             'comment_status' => !empty($request['comment_status']) ? '1' : '2',
             'image' => !empty($upload) ? $upload : null,
@@ -119,8 +118,7 @@ class PostService
         $post->description = $request['description'];
         $post->content = $request['content'];
         $post->status = !empty($request['status']) ? '1' : '2';
-        $post->create_by = $request['create_by'];
-        $post->update_by = $request['create_by'];
+        $post->update_by = auth()->user()->id;
         $post->comment_status = !empty($request['comment_status']) ? '1' : '2';
         $post->is_featured = !empty($request['is_featured']) ? '0' : '1';
         $post->updated_at = strftime('%Y-%m-%d %H:%M:%S', time() + 7*3600);

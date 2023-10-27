@@ -60,7 +60,7 @@
                             <tr>
                                 <td>{{ $comment->post->title }}</td>
                                 <td>{{ $comment->user->first_name . ' ' . $comment->user->last_name }}</td>
-                                <td>{{ $comment->content }}</td>
+                                <td>{!! $comment->content !!}</td>
                                 <td><span class="badge badge-{{ $status[$comment->status]['class'] }}">{{ $status[$comment->status]['label'] }}</span></td>
                                 <td>{{ $comment->created_at }}</td>
                                 <td>

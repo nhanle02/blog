@@ -37,7 +37,13 @@ class CommentService
     public function store($request)
     {
         $request['status'] = !empty($request['status']) ? '1' : '2';
-        return Comment::create($request);
+        return Comment::create([
+            'post_id' => $request['post_id'],
+            'comment_id' => $request['comment_id'],
+            'content' => $request['content'],
+            'status' => $request['status'],
+            'user_id' => auth()->user()->id
+        ]);
     }
 
     public function getCommentId($id)
@@ -49,7 +55,6 @@ class CommentService
     {
         $comment = Comment::find($id);
         $comment->post_id = $request['post_id'];
-        $comment->user_id = $request['user_id'];
         $comment->comment_id = $request['comment_id'];
         $comment->content = $request['content'];
         $comment->status = !empty($request['status']) ? '1' : '2';

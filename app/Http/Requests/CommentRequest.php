@@ -26,7 +26,6 @@ class CommentRequest extends FormRequest
         return [
             'post_id' => 'required',
             'content' => 'required',
-            'user_id' => 'required',
             'status' => 'nullable|in:on'
         ];
     }
