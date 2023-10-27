@@ -16,3 +16,11 @@ if (tagName) {
         tagSlug.value = e.target.value;
     }
 }
+
+$(document).on('click', '.js-remove-file-chosen', function () {
+    let $this = $(this),
+       chooseFileText = $this.closest('.group-file').find('.custom-file').attr('data-choose-file');
+    $this.closest('.group-file').find('.custom-file input').val('');
+    $this.closest('.group-file').find('.custom-file .custom-file-label').html(chooseFileText);
+    $this.closest('.file-preview').html('');
+});

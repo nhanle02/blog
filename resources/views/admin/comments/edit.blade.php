@@ -41,9 +41,6 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <input type="text" style="display: none;" value="2" name="user_id" class="form-control">
-                    </div>
-                    <div class="form-group">
                         <label for="">Comment_id</label>
                         <select name="comment_id" id="" class="form-control">
                             <option value="">Không có</option>

@@ -46,12 +46,6 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" value="{{ old('create_by', $post->user->id) }}" style="display: none;" name="create_by" class="form-control" id="create_by" placeholder="Nhập slug">
-                                    @error('create_by')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
                                     <label for="description">Nhập mô tả</label>
                                     <textarea name="description" id="description" name="description" class="form-control" cols="30" rows="5">{{ old('description', $post->description) }}</textarea>
                                 </div>
