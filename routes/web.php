@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\IndexController;
+use App\Http\Controllers\User\UserContactController;
+use App\Http\Controllers\User\UserPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::group([
     'prefix' => 'admin'
 ], function () {
@@ -98,3 +101,8 @@ Route::group([
         Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
     });
 });
+
+Route::get('/', [IndexController::class, 'index'])->name('user.index');
+Route::get('/contact', [UserContactController::class, 'index'])->name('user.contact.index');
+Route::get('/post/{id}', [UserPostController::class, 'index'])->name('user.post.index');
+
