@@ -20,7 +20,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#">Pages</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="category.html">Category</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.categories.index') }}">Category</a></li>
                             <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
                             <li><a class="dropdown-item" href="blog-single-alt.html">Blog Single Alt</a></li>
                             <li><a class="dropdown-item" href="about.html">About</a></li>
@@ -46,6 +46,9 @@
                 </ul>
                 <!-- header buttons -->
                 <div class="header-buttons">
+                    <a href="{{ route('user.login.index') }}" class="icon-button">
+                        <i class="fas fa-user"></i>
+                    </a>
                     <button class="search icon-button">
                         <i class="fas fa-search"></i>
                     </button>

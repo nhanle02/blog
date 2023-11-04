@@ -1,6 +1,6 @@
 @extends('user.contact.contact-layout')
 
-@section('breadcrumb1')
+@section('breadcrumb')
 <section class="page-header">
     <div class="container-xl">
         <div class="text-center">

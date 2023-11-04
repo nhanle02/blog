@@ -6,7 +6,7 @@
 <div class="site-wrapper">
 	@include('user.header')
 	<!-- section main content -->
-	@yield('breadcrumb1')
+	@yield('breadcrumb')
 	<section class="main-content">
 		<div class="container-xl">
 			<div class="row gy-4">
