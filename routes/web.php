@@ -11,6 +11,14 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\IndexController;
+use App\Http\Controllers\User\UserCategoryController;
+use App\Http\Controllers\User\UserContactController;
+use App\Http\Controllers\User\UserForgotController;
+use App\Http\Controllers\User\UserLoginController;
+use App\Http\Controllers\User\UserPasswordController;
+use App\Http\Controllers\User\UserPostController;
+use App\Http\Controllers\User\UserSignupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +32,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::group([
     'prefix' => 'admin'
 ], function () {
@@ -98,3 +106,14 @@ Route::group([
         Route::post('/settings', [SettingController::class, 'update'])->name('admin.settings.update');
     });
 });
+
+Route::get('/', [IndexController::class, 'index'])->name('user.index');
+Route::get('/contact', [UserContactController::class, 'index'])->name('user.contact.index');
+Route::get('/post/{id}', [UserPostController::class, 'index'])->name('user.post.index');
+Route::get('/login', [UserLoginController::class, 'index'])->name('user.login.index');
+Route::get('/forgot', [UserForgotController::class, 'index'])->name('user.forgot.index');
+Route::get('/new-password', [UserPasswordController::class, 'index'])->name('user.forgot.forgot');
+Route::get('/signup', [UserSignupController::class, 'index'])->name('user.signup.index');
+Route::get('/categories', [UserCategoryController::class, 'index'])->name('user.categories.index');
+Route::get('/tag', [UserCategoryController::class, 'index'])->name('user.tags.index');
+

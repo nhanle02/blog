@@ -49,6 +49,7 @@ class PostService
         $data = [
             'title' => $request['title'],
             'description' => $request['description'],
+            'create_by' => auth()->user()->id,
             'slug' => Str::slug($request['slug']),
             'content' => $request['content'],
             'status' => !empty($request['status']) ? '1' : '2',
